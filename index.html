@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CapBrief — study the business of sports</title>
+<meta name="description" content="CapBrief turns contract news, earnings calls, cap reports and game recaps into briefs, flashcards, quizzes and interview prep.">
+<meta property="og:title" content="CapBrief — study the business of sports">
+<meta property="og:description" content="Paste a deal, earnings call or recap. Get the brief, the numbers, flashcards and a quiz.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏒</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Caveat:wght@600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ice:#EEF2F5; --panel:#FFFFFF; --ink:#0E2A47; --muted:#56687A;
+  --goal:#D7322A; --blue:#1F5FBF; --line:#C9D4DE; --soft:#E2E9F0; --ok:#1E8E55;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","Comic Sans MS",cursive;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ice:#0F1B28; --panel:#16263A; --ink:#E8EEF4; --muted:#9AAABB;
+    --goal:#FF5A4F; --blue:#78A9F7; --line:#2B3E55; --soft:#1D3048; --ok:#3CC47F;
+  }
+}
+:root[data-theme="dark"]{
+  --ice:#0F1B28; --panel:#16263A; --ink:#E8EEF4; --muted:#9AAABB;
+  --goal:#FF5A4F; --blue:#78A9F7; --line:#2B3E55; --soft:#1D3048; --ok:#3CC47F;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--ice);color:var(--ink);font:16px/1.55 var(--body)}
+a{color:var(--blue)}
+button,textarea,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;flex-wrap:wrap}
+.logo{font:800 26px/1 var(--display);display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.puck{width:22px;height:10px;border-radius:50%;background:var(--ink)}
+nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+.icon{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 10px;cursor:pointer}
+
+.hero{position:relative;padding:32px 0 24px}
+.hero::before{content:"";position:absolute;left:-50vw;right:-50vw;top:0;height:6px;background:var(--goal)}
+h1{font:800 clamp(42px,7.5vw,88px)/.92 var(--display);margin:22px 0 14px;max-width:15ch}
+.lede{font-size:19px;color:var(--muted);max-width:58ch;margin:0 0 26px}
+
+.app{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+@media (max-width:860px){.app{grid-template-columns:1fr}}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.seg button{border:0;background:transparent;padding:7px 14px;cursor:pointer;color:var(--muted);font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:14px}
+.chip:hover{border-color:var(--blue)}
+label.small{font-size:14px;color:var(--muted);display:block;margin-bottom:6px}
+textarea{width:100%;min-height:230px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--ice);resize:vertical;font-size:15px}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:30px 16px;text-align:center;color:var(--muted);cursor:pointer}
+.drop.over{border-color:var(--blue);color:var(--ink)}
+.drop strong{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
+.filestat{margin-top:10px;font-size:14px}
+.opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.opts label{font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select,input[type=number],input[type=text]{border:1px solid var(--line);background:var(--ice);border-radius:8px;padding:7px 10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}
+.meter{font-size:14px;color:var(--muted)}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:600;cursor:pointer;background:var(--goal);color:#fff}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:14px}
+
+.board{min-height:420px}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin:-4px -4px 14px;overflow-x:auto;scrollbar-width:thin}
+.tab{border:0;background:none;padding:10px 11px;cursor:pointer;color:var(--muted);font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--goal)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.empty{color:var(--muted);padding:44px 8px;text-align:center}
+.empty strong{display:block;font:800 30px/1 var(--display);color:var(--ink);margin-bottom:8px}
+h2.title{font:800 32px/1.02 var(--display);margin:0 0 8px}
+.out p{margin:0 0 10px}
+ul.kp{padding-left:20px;margin:10px 0}
+ul.kp li{margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+.stat{background:var(--soft);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font:800 28px/1 var(--display)}
+.stat span{font-size:13px;color:var(--muted)}
+.take{border-left:4px solid var(--blue);padding:6px 12px;margin-top:14px;background:var(--soft);border-radius:0 8px 8px 0}
+
+.card{perspective:900px;cursor:pointer;margin:0 auto;max-width:480px}
+.card-in{position:relative;min-height:190px;transition:transform .45s;transform-style:preserve-3d}
+.card.flip .card-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;border-radius:12px;backface-visibility:hidden;border:1px solid var(--line);background:var(--ice);font-size:18px;font-weight:500;overflow:auto}
+.face.back{transform:rotateY(180deg);background:var(--soft)}
+.cardnav{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:14px;color:var(--muted);flex-wrap:wrap}
+.progress{height:6px;background:var(--soft);border-radius:6px;margin:0 auto 14px;max-width:480px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+.q{margin-bottom:18px}
+.q p{font-weight:600;margin:0 0 8px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--ice);border-radius:8px;padding:9px 12px;margin:6px 0;cursor:pointer}
+.opt.right{border-color:var(--ok);background:rgba(30,142,85,.14)}
+.opt.wrong{border-color:var(--goal);background:rgba(215,50,42,.12)}
+.why{font-size:14px;color:var(--muted);margin-top:4px}
+.score{font:800 26px/1 var(--display);margin-bottom:12px}
+
+dl.gloss dt{font-weight:600;margin-top:12px}
+dl.gloss dd{margin:2px 0 0;color:var(--muted)}
+ol.prep li{margin:10px 0}
+ol.prep small{display:block;color:var(--muted)}
+.script{white-space:pre-wrap;background:var(--ice);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:15px}
+
+.chat{display:flex;flex-direction:column;gap:10px;max-height:340px;overflow:auto;margin-bottom:10px}
+.msg{padding:9px 12px;border-radius:10px;max-width:88%;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--ink);color:var(--panel)}
+.msg.ai{align-self:flex-start;background:var(--soft)}
+.ask{display:flex;gap:8px}
+.ask input{flex:1}
+.err{color:var(--goal);font-weight:500}
+
+section{padding:60px 0 8px}
+h3{font:800 42px/1 var(--display);margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 22px;max-width:60ch}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.tool h4{margin:0 0 10px;font-size:17px}
+.tool label{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin:6px 0}
+.tool input{width:120px;text-align:right}
+.result{margin-top:10px;font:800 30px/1 var(--display)}
+.result small{display:block;font:400 13px var(--body);color:var(--muted);margin-top:4px}
+
+.lib{display:grid;gap:10px}
+.libitem{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.libitem b{display:block}
+.libitem span{font-size:13px;color:var(--muted)}
+
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.who h4{margin:0 0 4px;font-size:17px}
+.who p{margin:0;color:var(--muted)}
+
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.plan.pro{border:2px solid var(--goal)}
+.plan h4{margin:0;font:800 26px/1 var(--display)}
+.price{font:800 48px/1 var(--display);margin:12px 0 4px}
+.price small{font:500 15px var(--body);color:var(--muted)}
+.plan ul{padding-left:18px;color:var(--muted);flex:1}
+
+.note{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;max-width:680px;transform:rotate(-.4deg)}
+.note p{margin:0 0 12px;font-size:17px}
+.sig{font:600 34px/1 var(--hand);color:var(--blue);margin-top:6px}
+
+footer{padding:56px 0 34px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:60px}
+footer .made{color:var(--ink);font-weight:600}
+
+dialog{border:0;border-radius:16px;padding:24px;max-width:420px;width:calc(100% - 32px);background:var(--panel);color:var(--ink)}
+dialog::backdrop{background:rgba(14,42,71,.55)}
+dialog h4{font:800 32px/1 var(--display);margin:0 0 8px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:10px 16px;border-radius:10px;font-size:14px;z-index:9}
+@media (prefers-reduced-motion:reduce){.card-in,.progress i{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top"><span class="puck" aria-hidden="true"></span>CapBrief</a>
+    <nav>
+      <a href="#tools">Calculators</a>
+      <a href="#library">My library</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/portal" id="manage" hidden>Manage plan</a>
+      <button class="icon" id="theme" aria-label="Switch light or dark mode">◐</button>
+    </nav>
+  </header>
+
+  <div class="hero" id="top">
+    <h1>Study the business of sports in half the time.</h1>
+    <p class="lede">Drop in a contract story, earnings call, cap report, box score screenshot or class reading. Get a brief, the key numbers, flashcards, a quiz, a glossary, interview prep and a video script.</p>
+
+    <div class="app">
+      <div class="box">
+        <div class="seg" role="group" aria-label="Input type">
+          <button aria-pressed="true" data-in="paste">Paste text</button>
+          <button aria-pressed="false" data-in="file">Upload a file</button>
+        </div>
+
+        <div id="pastePane">
+          <div class="presets" role="group" aria-label="Try an example">
+            <button class="chip" data-preset="contract">Contract extension</button>
+            <button class="chip" data-preset="earnings">Earnings call</button>
+            <button class="chip" data-preset="recap">Game recap</button>
+            <button class="chip" data-preset="media">Media rights deal</button>
+          </div>
+          <label for="src" class="small">Your source text</label>
+          <textarea id="src" placeholder="Paste an article, transcript or your own notes…"></textarea>
+          <div class="meter" id="count">0 words</div>
+        </div>
+
+        <div id="filePane" hidden>
+          <div class="drop" id="drop" tabindex="0" role="button">
+            <strong>Drop a file or tap to choose</strong>
+            PDF, TXT, Markdown, or a screenshot (box score, cap sheet, slide — Pro)
+          </div>
+          <input type="file" id="file" hidden accept=".pdf,.txt,.md,text/plain,image/png,image/jpeg,image/webp,image/gif">
+          <div class="filestat" id="filestat"></div>
+        </div>
+
+        <div class="opts">
+          <label>Level
+            <select id="level"><option value="beginner">New to it</option><option value="student" selected>Student</option><option value="pro">Industry pro</option></select>
+          </label>
+          <label>Flashcards
+            <select id="ncards"><option>6</option><option selected>10</option><option>15</option></select>
+          </label>
+          <label>Quiz questions
+            <select id="nquiz"><option>4</option><option selected>6</option><option>10</option></select>
+          </label>
+        </div>
+
+        <div class="row">
+          <span class="meter" id="meter"></span>
+          <button class="btn" id="go">Make my notes</button>
+        </div>
+      </div>
+
+      <div class="box board" aria-live="polite">
+        <div class="tabs" role="tablist" id="tabs" hidden>
+          <button class="tab" role="tab" data-t="brief" aria-selected="true">Brief</button>
+          <button class="tab" role="tab" data-t="cards">Flashcards</button>
+          <button class="tab" role="tab" data-t="quiz">Quiz</button>
+          <button class="tab" role="tab" data-t="gloss">Glossary</button>
+          <button class="tab" role="tab" data-t="prep">Interview prep</button>
+          <button class="tab" role="tab" data-t="script">Video script</button>
+          <button class="tab" role="tab" data-t="ask">Ask</button>
+        </div>
+        <div id="out" class="out">
+          <div class="empty"><strong>Your notes land here</strong>Pick an example or add your own source, then press Make my notes.</div>
+        </div>
+        <div class="actions" id="actions" hidden>
+          <button class="btn ghost sm" id="save">Save to library</button>
+          <button class="btn ghost sm" id="copy">Copy notes</button>
+          <button class="btn ghost sm" id="dl">Download .md</button>
+          <button class="btn ghost sm" id="csv">Flashcards .csv</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="tools">
+    <h3>Front-office calculators</h3>
+    <p class="sub">Quick math you'll use on every deal, earnings call and ticketing question. No sign-up needed.</p>
+    <div class="tools">
+      <div class="box tool">
+        <h4>Contract and cap hit</h4>
+        <label>Total value ($M) <input type="number" id="c_total" value="92" step="0.1"></label>
+        <label>Years <input type="number" id="c_years" value="8" min="1"></label>
+        <label>Salary cap ($M) <input type="number" id="c_cap" value="95.5" step="0.1"></label>
+        <div class="result" id="c_out"></div>
+      </div>
+      <div class="box tool">
+        <h4>Year-over-year growth</h4>
+        <label>Last year <input type="number" id="g_prev" value="361"></label>
+        <label>This year <input type="number" id="g_now" value="412"></label>
+        <div class="result" id="g_out"></div>
+      </div>
+      <div class="box tool">
+        <h4>Gate revenue</h4>
+        <label>Capacity <input type="number" id="t_seats" value="18006"></label>
+        <label>Avg ticket ($) <input type="number" id="t_price" value="94"></label>
+        <label>Home games <input type="number" id="t_games" value="41"></label>
+        <label>Sell-through (%) <input type="number" id="t_sell" value="96"></label>
+        <div class="result" id="t_out"></div>
+      </div>
+      <div class="box tool">
+        <h4>Odds to implied probability</h4>
+        <label>American odds <input type="number" id="o_line" value="-150"></label>
+        <div class="result" id="o_out"></div>
+      </div>
+      <div class="box tool">
+        <h4>Points pace</h4>
+        <label>Points so far <input type="number" id="p_pts" value="26"></label>
+        <label>Games played <input type="number" id="p_gp" value="18"></label>
+        <label>Season length <input type="number" id="p_len" value="82"></label>
+        <div class="result" id="p_out"></div>
+      </div>
+      <div class="box tool">
+        <h4>Subscription revenue</h4>
+        <label>Subscribers <input type="number" id="s_subs" value="310000"></label>
+        <label>Monthly price ($) <input type="number" id="s_price" value="19.99" step="0.01"></label>
+        <label>Monthly churn (%) <input type="number" id="s_churn" value="4" step="0.1"></label>
+        <div class="result" id="s_out"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="library">
+    <h3>My library</h3>
+    <p class="sub">Notes you save stay in this browser. Open one to study again or keep asking it questions.</p>
+    <div class="lib" id="lib"></div>
+  </section>
+
+  <section id="who">
+    <h3>Who it's for</h3>
+    <div class="who" style="margin-top:20px">
+      <div><h4>Sport management students</h4><p>Turn readings on media rights, salary caps and stadium financing into exam-ready flashcards.</p></div>
+      <div><h4>Front-office job seekers</h4><p>Drill the latest deals and league economics, then practice the interview questions they lead to.</p></div>
+      <div><h4>Analysts and creators</h4><p>Pull the numbers out of an earnings call and get a ready-to-record script for your channel.</p></div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h3>Pricing</h3>
+    <p class="sub">Start free. Upgrade when it's part of your routine.</p>
+    <div class="plans">
+      <div class="plan">
+        <h4>Rookie</h4>
+        <div class="price">$0</div>
+        <ul><li>3 notes a day</li><li>Every study tool</li><li>All calculators</li></ul>
+        <a class="btn ghost" href="#top" style="text-align:center;text-decoration:none">Start free</a>
+      </div>
+      <div class="plan pro">
+        <h4>Pro</h4>
+        <div class="price">$9.99 <small>/ month</small></div>
+        <ul><li>Unlimited notes</li><li>Long transcripts and PDFs</li><li>Screenshot reading</li><li>Unlimited library</li></ul>
+        <button class="btn" data-buy="pro">Go Pro</button>
+      </div>
+      <div class="plan">
+        <h4>Front Office</h4>
+        <div class="price">$29 <small>/ month</small></div>
+        <ul><li>Everything in Pro</li><li>5 seats for a class or team</li><li>Shared decks</li></ul>
+        <button class="btn ghost" data-buy="team">Get Front Office</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h3>Why I built this</h3>
+    <div class="note" style="margin-top:20px">
+      <p>I played competitive hockey for twelve years, then moved to the other side of the glass: building analytics at NHL Analytica and breaking down the game on Ice Analytics.</p>
+      <p>The part nobody teaches well is the business — cap math, media rights, why a team takes on a contract it doesn't love. I wanted one place to read a deal, pull out the numbers that matter and actually remember them. So I made it.</p>
+      <div class="sig">Louie Suh</div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="made">Designed and built by Louie Suh</span>
+    <span>© <span id="yr"></span> CapBrief · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a><br>Notes are AI-assisted — check key figures against your source.</span>
+  </footer>
+</div>
+
+<dialog id="pay">
+  <h4>That's today's free notes</h4>
+  <p>Pro gives you unlimited notes, long transcripts and screenshot reading for $9.99 a month.</p>
+  <div class="row">
+    <button class="btn ghost" onclick="document.getElementById('pay').close()">Not now</button>
+    <button class="btn" data-buy="pro">Go Pro</button>
+  </div>
+</dialog>
+
+<script>
+const PRESETS = {
+  contract:`Harbor City Hawks sign star center Mika Lund to an 8-year, $92 million extension (average annual value $11.5M). The deal includes a full no-movement clause for the first five years and a modified no-trade list after that. The league salary cap rises to $95.5M next season. With Lund's new number, the Hawks have about $6.2M in projected cap space and still need to re-sign two restricted free agents. The contract front-loads $30M in signing bonuses into the first three years, which lowers lockout risk for the player.`,
+  earnings:`Q3 earnings call, Summit Sports & Entertainment (fictional). Revenue grew 14% year over year to $412M, driven by a 22% jump in premium seating and suite sales at its two arenas. Media rights revenue was flat at $118M as the regional sports network deal transitions to a direct-to-consumer streaming model in January. The streaming app reached 310,000 paid subscribers at $19.99/month. Operating margin improved to 11.8% from 9.4%. Management raised full-year guidance to $1.62B and announced a $250M arena renovation financed partly by a public-private partnership with the city.`,
+  recap:`The Harbor City Hawks beat the Lakeview Lynx 4-2 in front of a sellout crowd of 18,006. Mika Lund scored twice on the power play, which went 3-for-5. The Hawks won 58% of faceoffs and outshot the Lynx 38-24, with expected goals at 3.6 to 2.1. Goalie Ari Santos made 22 saves. The win moves the Hawks to 12-4-2. The team says gate revenue for home games is up 9% this season, helped by dynamic ticket pricing.`,
+  media:`The (fictional) Northern Pro League agreed to a 10-year national media rights package worth $6.4 billion, or $640M per year, nearly double its previous deal. Two broadcast partners split the regular season, while a streaming platform gets an exclusive Friday night game and international rights. Under the league's revenue-sharing rules, national media money is split equally among 32 clubs, about $20M per team per season. Because the salary cap is tied to 50% of league revenue, analysts expect the cap to jump about 8% over the next two seasons.`
+};
+
+const $ = s => document.querySelector(s);
+const src=$("#src"), out=$("#out"), go=$("#go"), meter=$("#meter"), tabs=$("#tabs"), actions=$("#actions");
+let data=null, source="", tab="brief", cardI=0, known=new Set(), quizPicks={}, chat=[], imageFile=null, cfg={}, status={pro:false,left:3};
+
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+const esc = s => String(s ?? "").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const toast = msg => { const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); };
+$("#yr").textContent = new Date().getFullYear();
+
+async function api(path, body){
+  const r = await fetch(path, body ? {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)} : {});
+  const j = await r.json().catch(()=>({error:"Something went wrong. Try again."}));
+  if (!r.ok) { const e = new Error(j.error||"Request failed"); e.code=j.code; throw e; }
+  return j;
+}
+
+/* theme */
+const applyTheme = t => { if(t) document.documentElement.dataset.theme=t; };
+applyTheme(store.get("cn_theme",null));
+$("#theme").onclick = () => {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = dark?"light":"dark"; applyTheme(next); store.set("cn_theme",next);
+};
+
+/* plan + usage */
+function drawMeter(){
+  meter.textContent = status.pro ? "Pro · unlimited notes" : `${Math.max(0,status.left)} of ${cfg.free_per_day||3} free notes left today`;
+  $("#manage").hidden = !status.pro;
+}
+async function refresh(){ try{ status = await api("/api/status"); }catch(e){} drawMeter(); }
+api("/api/config").then(c=>{ cfg=c; drawMeter(); }).catch(()=>{});
+refresh();
+if (new URLSearchParams(location.search).get("pro")==="1") { toast("Welcome to Pro. Unlimited notes unlocked."); history.replaceState(null,"","/"); }
+
+/* input */
+const words = () => { const n=src.value.trim()?src.value.trim().split(/\s+/).length:0; $("#count").textContent=`${n} words`; };
+src.oninput = words;
+document.querySelectorAll("[data-preset]").forEach(b=>b.onclick=()=>{ src.value=PRESETS[b.dataset.preset]; imageFile=null; words(); });
+document.querySelectorAll("[data-in]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-in]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("#pastePane").hidden = b.dataset.in!=="paste"; $("#filePane").hidden = b.dataset.in!=="file";
+});
+
+const drop=$("#drop"), fileIn=$("#file");
+drop.onclick=()=>fileIn.click();
+drop.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fileIn.click(); } };
+drop.ondragover=e=>{ e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave=()=>drop.classList.remove("over");
+drop.ondrop=e=>{ e.preventDefault(); drop.classList.remove("over"); if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); };
+fileIn.onchange=()=>{ if(fileIn.files[0]) handleFile(fileIn.files[0]); };
+
+function loadPdfJs(){
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  return new Promise((res,rej)=>{
+    const s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    s.onload=()=>{ window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; res(window.pdfjsLib); };
+    s.onerror=()=>rej(new Error("pdf"));
+    document.head.appendChild(s);
+  });
+}
+async function handleFile(f){
+  const stat=$("#filestat"); imageFile=null;
+  stat.textContent=`Reading ${f.name}…`;
+  try{
+    if (f.type.startsWith("image/")) {
+      if (f.size > 5*1024*1024) { stat.innerHTML=`<span class="err">That image is over 5 MB. Crop it or save it smaller.</span>`; return; }
+      imageFile=f; src.value=""; words();
+      stat.textContent = status.pro ? `Screenshot ready: ${f.name}` : `Screenshot ready: ${f.name} (screenshot reading is a Pro feature)`;
+      return;
+    }
+    let text="";
+    if (f.type==="application/pdf" || /\.pdf$/i.test(f.name)) {
+      const lib=await loadPdfJs();
+      const pdf=await lib.getDocument({data:await f.arrayBuffer()}).promise;
+      const pages=Math.min(pdf.numPages, status.pro?120:40);
+      for(let i=1;i<=pages;i++){ const c=await (await pdf.getPage(i)).getTextContent(); text+=c.items.map(x=>x.str).join(" ")+"\n"; }
+    } else text=await f.text();
+    text=text.trim();
+    if(!text){ stat.innerHTML=`<span class="err">No readable text in that file. If it's a scan, upload a screenshot instead.</span>`; return; }
+    src.value=text; words();
+    stat.textContent=`Loaded ${f.name} · ${text.split(/\s+/).length.toLocaleString()} words`;
+  }catch(e){ stat.innerHTML=`<span class="err">Couldn't open ${esc(f.name)}. Try another file or paste the text.</span>`; }
+}
+const toBase64 = f => new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(",")[1]); r.onerror=rej; r.readAsDataURL(f); });
+
+/* generate */
+go.onclick = async () => {
+  const text=src.value.trim();
+  if(!imageFile && text.length<80){ out.innerHTML=`<p class="err">Add at least a few sentences (or a file) so there's something to study.</p>`; return; }
+  if(!status.pro && status.left<=0){ $("#pay").showModal(); return; }
+  go.disabled=true; go.textContent="Reading…";
+  out.innerHTML=`<div class="empty"><strong>Breaking it down</strong>Pulling the key points, numbers and questions. This takes about 20 seconds.</div>`;
+  try{
+    const body={ text, level:$("#level").value, ncards:+$("#ncards").value, nquiz:+$("#nquiz").value };
+    if(imageFile){ body.image={ data:await toBase64(imageFile), media_type:imageFile.type }; }
+    const r=await api("/api/notes", body);
+    data=r.notes; source=r.source; status.left=r.left; status.pro=r.pro; drawMeter();
+    resetStudy(); tabs.hidden=false; actions.hidden=false; tab="brief"; render();
+  }catch(e){
+    if(e.code==="limit"){ status.left=0; drawMeter(); $("#pay").showModal(); out.innerHTML=`<p class="err">${esc(e.message)}</p>`; }
+    else out.innerHTML=`<p class="err">${esc(e.message)}</p>`;
+  }finally{ go.disabled=false; go.textContent="Make my notes"; }
+};
+
+function resetStudy(){ cardI=0; known=new Set(); quizPicks={}; chat=[]; }
+tabs.onclick=e=>{ const b=e.target.closest(".tab"); if(!b) return; tab=b.dataset.t; render(); };
+
+function render(){
+  tabs.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===tab));
+  if(!data) return;
+  const d=data;
+  if(tab==="brief"){
+    out.innerHTML=`<h2 class="title">${esc(d.title)}</h2><p>${esc(d.summary)}</p>
+      <ul class="kp">${(d.keyPoints||[]).map(k=>`<li>${esc(k)}</li>`).join("")}</ul>
+      <div class="stats">${(d.numbers||[]).map(n=>`<div class="stat"><b>${esc(n.value)}</b><span>${esc(n.label)}</span></div>`).join("")}</div>
+      ${d.takeaway?`<div class="take"><strong>Why it matters:</strong> ${esc(d.takeaway)}</div>`:""}`;
+  } else if(tab==="cards"){
+    const cs=d.flashcards||[]; if(!cs.length){ out.innerHTML=`<p class="empty">No flashcards this time.</p>`; return; }
+    const c=cs[cardI], pct=Math.round(known.size/cs.length*100);
+    out.innerHTML=`<div class="progress" aria-label="${known.size} of ${cs.length} known"><i style="width:${pct}%"></i></div>
+      <div class="card" id="card" tabindex="0" role="button" aria-label="Flip card"><div class="card-in">
+      <div class="face">${esc(c.q)}</div><div class="face back">${esc(c.a)}</div></div></div>
+      <div class="cardnav"><button class="btn ghost sm" id="again">Study again</button><span>${cardI+1} / ${cs.length} · ${known.size} known</span><button class="btn sm" id="gotit">Got it</button></div>
+      <div class="cardnav"><button class="btn ghost sm" id="shuffle">Shuffle</button><button class="btn ghost sm" id="reset">Reset</button></div>`;
+    const card=$("#card"), flip=()=>card.classList.toggle("flip");
+    card.onclick=flip; card.onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } };
+    const next=()=>{
+      if(known.size===cs.length){ cardI=0; render(); toast("Every card known. Nice work."); return; }
+      do{ cardI=(cardI+1)%cs.length; }while(known.has(cardI)); render();
+    };
+    $("#gotit").onclick=()=>{ known.add(cardI); next(); };
+    $("#again").onclick=()=>{ known.delete(cardI); next(); };
+    $("#shuffle").onclick=()=>{ d.flashcards=cs.sort(()=>Math.random()-.5); known=new Set(); cardI=0; render(); };
+    $("#reset").onclick=()=>{ known=new Set(); cardI=0; render(); };
+  } else if(tab==="quiz"){
+    const qs=d.quiz||[], done=Object.keys(quizPicks).length;
+    const right=Object.entries(quizPicks).filter(([i,p])=>qs[i].answer===p).length;
+    out.innerHTML=`<div class="score">${done===qs.length?`You scored ${right} / ${qs.length}`:`${done} of ${qs.length} answered`}</div>`+
+      qs.map((q,i)=>{ const p=quizPicks[i];
+        return `<div class="q"><p>${i+1}. ${esc(q.q)}</p>${q.options.map((o,j)=>{
+          const cls=p===undefined?"":(j===q.answer?"right":(j===p?"wrong":""));
+          return `<button class="opt ${cls}" data-q="${i}" data-o="${j}" ${p!==undefined?"disabled":""}>${esc(o)}</button>`;}).join("")}
+          ${p!==undefined?`<div class="why">${p===q.answer?"Correct. ":"Not quite. "}${esc(q.why)}</div>`:""}</div>`;}).join("")+
+      (done===qs.length?`<button class="btn ghost sm" id="retake">Retake quiz</button>`:"");
+    out.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ quizPicks[b.dataset.q]=+b.dataset.o; render(); });
+    const rt=$("#retake"); if(rt) rt.onclick=()=>{ quizPicks={}; render(); };
+  } else if(tab==="gloss"){
+    out.innerHTML=`<h2 class="title">Glossary</h2><dl class="gloss">${(d.glossary||[]).map(g=>`<dt>${esc(g.term)}</dt><dd>${esc(g.meaning)}</dd>`).join("")}</dl>`;
+  } else if(tab==="prep"){
+    out.innerHTML=`<h2 class="title">Interview prep</h2><ol class="prep">${(d.interview||[]).map(q=>`<li>${esc(q.q)}<small>${esc(q.tip)}</small></li>`).join("")}</ol>`;
+  } else if(tab==="script"){
+    out.innerHTML=`<h2 class="title">60-second script</h2><div class="script">${esc(d.script)}</div>`;
+  } else if(tab==="ask"){
+    out.innerHTML=`<h2 class="title">Ask about this source</h2>
+      <div class="chat" id="chat">${chat.length?chat.map(m=>`<div class="msg ${m.role==="user"?"me":"ai"}">${esc(m.content)}</div>`).join(""):`<p class="meter">Try: "What's the biggest risk in this deal?" or "Explain this like I'm new to cap math."</p>`}</div>
+      <div class="ask"><input type="text" id="q" placeholder="Ask a question…" aria-label="Your question" maxlength="500"><button class="btn sm" id="send">Ask</button></div>`;
+    const qi=$("#q"); $("#send").onclick=ask; qi.onkeydown=e=>{ if(e.key==="Enter") ask(); };
+    const c=$("#chat"); c.scrollTop=c.scrollHeight;
+  }
+}
+
+async function ask(){
+  const qi=$("#q"); const q=qi.value.trim(); if(!q) return;
+  const history=chat.filter(m=>!m.err).slice(-8);
+  chat.push({role:"user",content:q}); chat.push({role:"assistant",content:"…"}); render();
+  try{ const r=await api("/api/ask",{source,history,question:q}); chat[chat.length-1]={role:"assistant",content:r.answer}; }
+  catch(e){ chat[chat.length-1]={role:"assistant",content:e.message,err:true}; chat[chat.length-2].err=true; }
+  if(tab==="ask") render();
+}
+
+/* exports */
+function toMd(){
+  const d=data; let m=`# ${d.title}\n\n${d.summary}\n\n## Key points\n${(d.keyPoints||[]).map(k=>"- "+k).join("\n")}\n\n## Numbers\n${(d.numbers||[]).map(n=>`- **${n.value}** ${n.label}`).join("\n")}\n\n**Why it matters:** ${d.takeaway||""}\n\n## Flashcards\n${(d.flashcards||[]).map(c=>`- Q: ${c.q}\n  A: ${c.a}`).join("\n")}\n\n## Quiz\n`;
+  (d.quiz||[]).forEach((q,i)=>{ m+=`${i+1}. ${q.q}\n${q.options.map((o,j)=>`   ${"ABCD"[j]}. ${o}`).join("\n")}\n   Answer: ${"ABCD"[q.answer]} — ${q.why}\n`; });
+  m+=`\n## Glossary\n${(d.glossary||[]).map(g=>`- **${g.term}:** ${g.meaning}`).join("\n")}\n\n## Interview prep\n${(d.interview||[]).map(q=>`- ${q.q}\n  Tip: ${q.tip}`).join("\n")}\n\n## Video script\n${d.script||""}\n\n— Made with CapBrief`;
+  return m;
+}
+const slug = () => (data.title||"notes").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+function saveFile(filename,content,type){
+  const url=URL.createObjectURL(new Blob([content],{type}));
+  const a=document.createElement("a"); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$("#dl").onclick=()=>data&&saveFile(slug()+".md",toMd(),"text/markdown");
+$("#csv").onclick=()=>data&&saveFile(slug()+"-flashcards.csv","front,back\n"+(data.flashcards||[]).map(c=>`"${c.q.replace(/"/g,'""')}","${c.a.replace(/"/g,'""')}"`).join("\n"),"text/csv");
+$("#copy").onclick=async()=>{ if(!data) return; try{ await navigator.clipboard.writeText(toMd()); toast("Notes copied"); }catch(e){ toast("Copy didn't work here. Use Download .md."); } };
+
+/* library */
+function drawLib(){
+  const lib=store.get("cn_lib",[]), el=$("#lib");
+  if(!lib.length){ el.innerHTML=`<p class="meter">Nothing saved yet. Make some notes and press Save to library.</p>`; return; }
+  el.innerHTML=lib.map(x=>`<div class="libitem"><div><b>${esc(x.data.title)}</b><span>${new Date(x.at).toLocaleDateString()} · ${(x.data.flashcards||[]).length} cards</span></div>
+    <div><button class="btn ghost sm" data-open="${x.id}">Open</button> <button class="btn ghost sm" data-del="${x.id}" aria-label="Delete ${esc(x.data.title)}">Delete</button></div></div>`).join("");
+  el.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{ const x=lib.find(i=>i.id===b.dataset.open); data=x.data; source=x.source; resetStudy(); tab="brief"; tabs.hidden=false; actions.hidden=false; render(); $("#top").scrollIntoView(); });
+  el.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{ store.set("cn_lib",lib.filter(i=>i.id!==b.dataset.del)); drawLib(); toast("Removed from library"); });
+}
+$("#save").onclick=()=>{
+  if(!data) return; const lib=store.get("cn_lib",[]);
+  if(lib.some(x=>x.data.title===data.title&&x.source===source)){ toast("Already in your library"); return; }
+  lib.unshift({id:Date.now().toString(36),at:Date.now(),data,source}); store.set("cn_lib",lib.slice(0,50)); drawLib(); toast("Saved to library");
+};
+drawLib();
+
+/* checkout */
+document.querySelectorAll("[data-buy]").forEach(b=>b.onclick=()=>{
+  const url = b.dataset.buy==="team" ? cfg.team_link : cfg.pro_link;
+  if(url) location.href=url; else toast("Checkout opens soon. Thanks for your interest!");
+});
+
+/* calculators */
+const v=id=>parseFloat($("#"+id).value)||0;
+const money=n=>n>=1e9?`$${(n/1e9).toFixed(2)}B`:n>=1e6?`$${(n/1e6).toFixed(1)}M`:`$${Math.round(n).toLocaleString()}`;
+function calc(){
+  const aav=v("c_total")/Math.max(1,v("c_years")), capPct=v("c_cap")?aav/v("c_cap")*100:0;
+  $("#c_out").innerHTML=`$${aav.toFixed(2)}M AAV<small>${capPct.toFixed(1)}% of the cap</small>`;
+  const g=v("g_prev")?(v("g_now")-v("g_prev"))/v("g_prev")*100:0;
+  $("#g_out").innerHTML=`${g>=0?"+":""}${g.toFixed(1)}%<small>Change of ${(v("g_now")-v("g_prev")).toLocaleString()}</small>`;
+  const gate=v("t_seats")*v("t_sell")/100*v("t_price")*v("t_games");
+  $("#t_out").innerHTML=`${money(gate)}<small>${money(gate/Math.max(1,v("t_games")))} per game</small>`;
+  const o=v("o_line"), p=o<0?(-o)/((-o)+100):o>0?100/(o+100):0;
+  $("#o_out").innerHTML=`${(p*100).toFixed(1)}%<small>${o?`Break-even win rate at ${o>0?"+":""}${o}`:"Enter odds like -150 or +130"}</small>`;
+  const pace=v("p_gp")?v("p_pts")/v("p_gp")*v("p_len"):0;
+  $("#p_out").innerHTML=`${Math.round(pace)} pts<small>${(v("p_gp")?v("p_pts")/v("p_gp"):0).toFixed(2)} per game</small>`;
+  const mrr=v("s_subs")*v("s_price"), lost=v("s_subs")*v("s_churn")/100;
+  $("#s_out").innerHTML=`${money(mrr*12)}/yr<small>${money(mrr)} a month · about ${Math.round(lost).toLocaleString()} cancel monthly</small>`;
+}
+document.querySelectorAll(".tool input").forEach(i=>i.oninput=calc); calc();
+</script>
+</body>
+</html>
